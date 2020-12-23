@@ -18,11 +18,14 @@ class Client < ActiveRecord::Base
         return new_rental
         end
         # if current_rentals
-            
-        # else
-        #    puts "sorry we dont have any of those left! try another"
-        # end
-
     end
 
+
+    def return_one(vhs_ins)
+       rentals = Rental.select{|rental| rental.client_id == self.id}
+        vhs = rentals.find{|rental| rental.vhs_id == vhs_ins.id}
+        # binding.pry
+        vhs.update(current: false) if vhs
+        # Vhs.update(vhs.id) 
+    end
 end
