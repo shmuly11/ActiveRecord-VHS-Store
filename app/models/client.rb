@@ -28,4 +28,17 @@ class Client < ActiveRecord::Base
         vhs.update(current: false) if vhs
         # Vhs.update(vhs.id) 
     end
+
+    def self.paid_most
+        rentals = 0
+        best_client = Client.first
+        Client.all.map do |client|
+            if  client.rentals.count > rentals
+            rentals = client.rentals.count
+            best_client = client
+            end
+        end
+        # binding.pry
+        best_client
+    end
 end
